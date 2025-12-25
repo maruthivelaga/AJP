@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Publication - Research Publications</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="color: #667eea; font-weight: bold;"><i class="bi bi-journal-text"></i> Research Publications System</a>
+            <div class="ms-auto">
+                <span class="navbar-text me-3"><i class="bi bi-person-circle"></i> <span sec:authentication="name"></span></span>
+                <form th:action="@{/logout}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block" style="min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="/" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/publications}" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;"><i class="bi bi-file-earmark-text"></i> Publications</a></li>
+                        <li class="nav-item"><a class="nav-link active" th:href="@{/publications/add}" style="color: white; background: rgba(255,255,255,0.2); border-radius: 8px; margin: 5px 10px; padding: 12px 20px;"><i class="bi bi-plus-circle"></i> Add Publication</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/authors}" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;"><i class="bi bi-people"></i> Authors</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-10 ms-sm-auto px-4 py-4">
+                <h1 class="mb-4"><i class="bi bi-plus-circle"></i> Add New Publication</h1>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form th:action="@{/publications/add}" th:object="${publication}" method="post">
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Title *</label>
+                                    <input type="text" th:field="*{title}" class="form-control" required>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Type *</label>
+                                    <select th:field="*{type}" class="form-select" required>
+                                        <option value="">Select Type</option>
+                                        <option th:each="type : ${publicationTypes}" th:value="${type}" th:text="${type}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Year *</label>
+                                    <input type="number" th:field="*{year}" class="form-control" min="1900" max="2100" required>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Index Type</label>
+                                    <select th:field="*{indexType}" class="form-select">
+                                        <option value="">Select Index</option>
+                                        <option th:each="idx : ${indexTypes}" th:value="${idx}" th:text="${idx}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Journal Name</label>
+                                    <input type="text" th:field="*{journal}" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Conference Name</label>
+                                    <input type="text" th:field="*{conference}" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">DOI</label>
+                                    <input type="text" th:field="*{doi}" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">ISBN</label>
+                                    <input type="text" th:field="*{isbn}" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">ISSN</label>
+                                    <input type="text" th:field="*{issn}" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Volume</label>
+                                    <input type="text" th:field="*{volume}" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Issue</label>
+                                    <input type="text" th:field="*{issue}" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Pages</label>
+                                    <input type="text" th:field="*{pages}" class="form-control" placeholder="e.g., 123-145">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Publisher</label>
+                                    <input type="text" th:field="*{publisher}" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Publication Date</label>
+                                    <input type="date" th:field="*{publicationDate}" class="form-control">
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Authors *</label>
+                                    <select name="authorIds" class="form-select" multiple size="5">
+                                        <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name + ' (' + author.department + ')'}"></option>
+                                    </select>
+                                    <small class="text-muted">Hold Ctrl/Cmd to select multiple authors</small>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Keywords</label>
+                                    <input type="text" th:field="*{keywords}" class="form-control" placeholder="Comma separated">
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Description</label>
+                                    <textarea th:field="*{description}" class="form-control" rows="4"></textarea>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">URL</label>
+                                    <input type="url" th:field="*{url}" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Impact Factor</label>
+                                    <input type="number" th:field="*{impactFactor}" class="form-control" step="0.01">
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save Publication</button>
+                                <a th:href="@{/publications}" class="btn btn-secondary"><i class="bi bi-x-circle"></i> Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Author - Research Publications</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="color: #667eea; font-weight: bold;"><i class="bi bi-journal-text"></i> Research Publications System</a>
+            <div class="ms-auto">
+                <span class="navbar-text me-3"><i class="bi bi-person-circle"></i> <span sec:authentication="name"></span></span>
+                <form th:action="@{/logout}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block" style="min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="/" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/publications}" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;"><i class="bi bi-file-earmark-text"></i> Publications</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/authors}" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;"><i class="bi bi-people"></i> Authors</a></li>
+                        <li class="nav-item"><a class="nav-link active" th:href="@{/authors/add}" style="color: white; background: rgba(255,255,255,0.2); border-radius: 8px; margin: 5px 10px; padding: 12px 20px;"><i class="bi bi-person-plus"></i> Add Author</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-10 ms-sm-auto px-4 py-4">
+                <h1 class="mb-4"><i class="bi bi-person-plus"></i> Add New Author</h1>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form th:action="@{/authors/add}" th:object="${author}" method="post">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Name *</label>
+                                    <input type="text" th:field="*{name}" class="form-control" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" th:field="*{email}" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Department</label>
+                                    <input type="text" th:field="*{department}" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Designation</label>
+                                    <input type="text" th:field="*{designation}" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Author Type</label>
+                                    <select th:field="*{type}" class="form-select">
+                                        <option value="">Select Type</option>
+                                        <option th:each="type : ${authorTypes}" th:value="${type}" th:text="${type}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Affiliation</label>
+                                    <input type="text" th:field="*{affiliation}" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Internal/External</label>
+                                    <select th:field="*{isInternal}" class="form-select">
+                                        <option value="true">Internal</option>
+                                        <option value="false">External</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">ORCID</label>
+                                    <input type="text" th:field="*{orcid}" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Scopus ID</label>
+                                    <input type="text" th:field="*{scopusId}" class="form-control">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Google Scholar ID</label>
+                                    <input type="text" th:field="*{googleScholarId}" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save Author</button>
+                                <a th:href="@{/authors}" class="btn btn-secondary"><i class="bi bi-x-circle"></i> Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

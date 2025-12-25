@@ -1,0 +1,24 @@
+# Quick Start Commands
+
+# 1. Navigate to project directory
+cd "C:\Users\maruthi velaga\Desktop\AJP"
+
+# 2. Create PostgreSQL database (run in psql or pgAdmin)
+# CREATE DATABASE research_publications_db;
+
+# 3. Update database password in src\main\resources\application.properties
+# spring.datasource.password=YOUR_PASSWORD
+
+# 4. Build the project
+mvn clean install
+
+# 5. Run the application
+mvn spring-boot:run
+
+# 6. Access the application
+# Open browser: http://localhost:8080
+
+# Default credentials:
+# Admin: admin@dept.edu / admin123
+# Faculty: faculty@dept.edu / faculty123
+# Student: student@dept.edu / student123

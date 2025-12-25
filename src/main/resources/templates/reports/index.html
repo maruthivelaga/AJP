@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports - Research Publications</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="color: #667eea; font-weight: bold;"><i class="bi bi-journal-text"></i> Research Publications System</a>
+            <div class="ms-auto">
+                <span class="navbar-text me-3"><i class="bi bi-person-circle"></i> <span sec:authentication="name"></span></span>
+                <form th:action="@{/logout}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block" style="min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="/" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/publications}" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;"><i class="bi bi-file-earmark-text"></i> Publications</a></li>
+                        <li class="nav-item"><a class="nav-link active" th:href="@{/reports}" style="color: white; background: rgba(255,255,255,0.2); border-radius: 8px; margin: 5px 10px; padding: 12px 20px;"><i class="bi bi-bar-chart"></i> Reports</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/authors}" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;"><i class="bi bi-people"></i> Authors</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-10 ms-sm-auto px-4 py-4">
+                <h1 class="mb-4"><i class="bi bi-bar-chart"></i> Generate Reports</h1>
+
+                <div class="row">
+                    <!-- Excel Report Card -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title"><i class="bi bi-file-earmark-excel text-success"></i> Excel Report</h3>
+                                <p class="card-text">Download publications data in Excel format for further analysis and NAAC/NBA submissions.</p>
+                                
+                                <form method="get" th:action="@{/reports/excel}" class="mt-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Filter by Year</label>
+                                        <input type="number" name="year" class="form-control" placeholder="e.g., 2024">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Filter by Type</label>
+                                        <select name="type" class="form-select">
+                                            <option value="">All Types</option>
+                                            <option th:each="type : ${publicationTypes}" th:value="${type}" th:text="${type}"></option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-success w-100">
+                                        <i class="bi bi-download"></i> Download Excel
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PDF Report Card -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title"><i class="bi bi-file-earmark-pdf text-danger"></i> PDF Report</h3>
+                                <p class="card-text">Download publications report in PDF format suitable for NAAC documentation and presentations.</p>
+                                
+                                <form method="get" th:action="@{/reports/pdf}" class="mt-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Filter by Year</label>
+                                        <input type="number" name="year" class="form-control" placeholder="e.g., 2024">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Filter by Type</label>
+                                        <select name="type" class="form-select">
+                                            <option value="">All Types</option>
+                                            <option th:each="type : ${publicationTypes}" th:value="${type}" th:text="${type}"></option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger w-100">
+                                        <i class="bi bi-download"></i> Download PDF
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report Information -->
+                <div class="card mt-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="bi bi-info-circle"></i> Report Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Available Reports:</h6>
+                        <ul>
+                            <li><strong>Excel Report:</strong> Comprehensive data export with all publication details for analysis</li>
+                            <li><strong>PDF Report:</strong> Formatted report suitable for printing and documentation</li>
+                        </ul>
+                        
+                        <h6 class="mt-3">Filter Options:</h6>
+                        <ul>
+                            <li><strong>Year:</strong> Filter publications by specific year</li>
+                            <li><strong>Type:</strong> Filter by publication type (Journal, Conference, Patent, etc.)</li>
+                            <li>Leave filters empty to download all publications</li>
+                        </ul>
+
+                        <h6 class="mt-3">Usage for Accreditation:</h6>
+                        <ul>
+                            <li><strong>NAAC:</strong> Use for Criterion 3.4 (Research Publications and Awards)</li>
+                            <li><strong>NBA:</strong> Use for Faculty Publications documentation</li>
+                            <li><strong>NIRF:</strong> Use for Research section data submission</li>
+                        </ul>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

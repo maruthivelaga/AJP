@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Publications - Research Publications</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="color: #667eea; font-weight: bold;">
+                <i class="bi bi-journal-text"></i> Research Publications System
+            </a>
+            <div class="ms-auto">
+                <span class="navbar-text me-3"><i class="bi bi-person-circle"></i> <span sec:authentication="name"></span></span>
+                <form th:action="@{/logout}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block" style="min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;">
+                                <i class="bi bi-speedometer2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" th:href="@{/publications}" style="color: white; background: rgba(255,255,255,0.2); border-radius: 8px; margin: 5px 10px; padding: 12px 20px;">
+                                <i class="bi bi-file-earmark-text"></i> Publications
+                            </a>
+                        </li>
+                        <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'FACULTY')">
+                            <a class="nav-link" th:href="@{/publications/add}" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;">
+                                <i class="bi bi-plus-circle"></i> Add Publication
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/authors}" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;">
+                                <i class="bi bi-people"></i> Authors
+                            </a>
+                        </li>
+                        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                            <a class="nav-link" th:href="@{/admin/users}" style="color: rgba(255,255,255,0.8); padding: 12px 20px; margin: 5px 10px;">
+                                <i class="bi bi-gear"></i> User Management
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-10 ms-sm-auto px-4 py-4">
+                <div th:if="${success}" class="alert alert-success alert-dismissible fade show"><i class="bi bi-check-circle"></i> <span th:text="${success}"></span><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show"><i class="bi bi-exclamation-triangle"></i> <span th:text="${error}"></span><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1><i class="bi bi-file-earmark-text"></i> Publications</h1>
+                    <a th:href="@{/publications/add}" class="btn btn-primary" sec:authorize="hasAnyRole('ADMIN', 'FACULTY')">
+                        <i class="bi bi-plus-circle"></i> Add Publication
+                    </a>
+                </div>
+
+                <!-- Filters -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form method="get" th:action="@{/publications}" class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Year</label>
+                                <input type="number" name="year" class="form-control" placeholder="e.g., 2024" th:value="${param.year}">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Type</label>
+                                <select name="type" class="form-select">
+                                    <option value="">All Types</option>
+                                    <option th:each="type : ${publicationTypes}" th:value="${type}" th:text="${type}" th:selected="${param.type == type.name()}"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Index Type</label>
+                                <select name="indexType" class="form-select">
+                                    <option value="">All Indexes</option>
+                                    <option th:each="idx : ${indexTypes}" th:value="${idx}" th:text="${idx}" th:selected="${param.indexType == idx.name()}"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Status</label>
+                                <select name="status" class="form-select">
+                                    <option value="">All Status</option>
+                                    <option th:each="stat : ${statuses}" th:value="${stat}" th:text="${stat}" th:selected="${param.status == stat.name()}"></option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Filter</button>
+                                <a th:href="@{/publications}" class="btn btn-secondary"><i class="bi bi-x-circle"></i> Clear</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Publications Table -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Type</th>
+                                        <th>Year</th>
+                                        <th>Authors</th>
+                                        <th>Index</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="pub : ${publications}">
+                                        <td><a th:href="@{/publications/{id}(id=${pub.id})}" th:text="${pub.title}"></a></td>
+                                        <td><span class="badge bg-info" th:text="${pub.type}"></span></td>
+                                        <td th:text="${pub.year}"></td>
+                                        <td>
+                                            <span th:each="author, iterStat : ${pub.authors}" th:text="${author.name} + ${iterStat.last ? '' : ', '}"></span>
+                                        </td>
+                                        <td><span class="badge bg-secondary" th:text="${pub.indexType ?: 'N/A'}"></span></td>
+                                        <td>
+                                            <span class="badge" th:classappend="${pub.status.name() == 'APPROVED' ? 'bg-success' : pub.status.name() == 'PENDING' ? 'bg-warning' : 'bg-danger'}" th:text="${pub.status}"></span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/publications/{id}(id=${pub.id})}" class="btn btn-sm btn-info"><i class="bi bi-eye"></i></a>
+                                            <a th:href="@{/publications/{id}/edit(id=${pub.id})}" class="btn btn-sm btn-warning" sec:authorize="hasAnyRole('ADMIN', 'FACULTY')"><i class="bi bi-pencil"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
