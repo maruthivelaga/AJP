@@ -1,0 +1,8 @@
+com\appointment\dao\DoctorDAO.class
+com\appointment\util\HibernateUtil.class
+com\appointment\dao\PatientDAO.class
+com\appointment\model\Patient.class
+com\appointment\servlet\AppointmentServlet.class
+com\appointment\servlet\PatientServlet.class
+com\appointment\model\Doctor.class
+com\appointment\servlet\DoctorServlet.class
