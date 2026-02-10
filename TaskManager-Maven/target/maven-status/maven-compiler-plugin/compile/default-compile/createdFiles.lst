@@ -1,0 +1,4 @@
+com\taskmanager\Main.class
+com\taskmanager\view\TaskView.class
+com\taskmanager\model\Task.class
+com\taskmanager\controller\TaskController.class

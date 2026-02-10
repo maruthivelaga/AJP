@@ -1,0 +1,4 @@
+com\addressbook\controller\ContactController.class
+com\addressbook\view\ContactView.class
+com\addressbook\model\Contact.class
+com\addressbook\Main.class
