@@ -7,15 +7,15 @@
  * - View: ContactView.java - Handles user interface and display
  * - Controller: ContactController.java - Manages the flow between Model and View
  */
-public class Main {
-    public static void main(String[] args) {
-        // Create the View
-        ContactView view = new ContactView();
-        
-        // Create the Controller with the View
-        ContactController controller = new ContactController(view);
-        
-        // Start the application
-        controller.start();
+    public class Main {
+        public static void main(String[] args) {
+            // Create the View
+            ContactView view = new ContactView();
+            
+            // Create the Controller with the View
+            ContactController controller = new ContactController(view);
+            
+            // Start the application
+            controller.start();
+        }
     }
-}
