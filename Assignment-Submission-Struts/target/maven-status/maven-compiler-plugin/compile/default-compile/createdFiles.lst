@@ -1,0 +1,7 @@
+com/university/assignment/util/DatabaseUtil.class
+com/university/assignment/action/SubmitAssignmentAction.class
+com/university/assignment/model/Assignment.class
+com/university/assignment/action/ViewSubmissionsAction.class
+com/university/assignment/dao/AssignmentDao.class
+com/university/assignment/action/DisplayAssignmentFormAction.class
+com/university/assignment/form/AssignmentForm.class

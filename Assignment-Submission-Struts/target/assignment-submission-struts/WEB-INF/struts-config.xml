@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+        "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+
+    <form-beans>
+        <form-bean name="assignmentForm" type="com.university.assignment.form.AssignmentForm"/>
+    </form-beans>
+
+    <action-mappings>
+        <action path="/assignmentForm" type="com.university.assignment.action.DisplayAssignmentFormAction">
+            <forward name="success" path="/WEB-INF/jsp/assignmentForm.jsp"/>
+        </action>
+
+        <action path="/submitAssignment"
+                type="com.university.assignment.action.SubmitAssignmentAction"
+                name="assignmentForm"
+                scope="request"
+                validate="true"
+                input="/WEB-INF/jsp/assignmentForm.jsp">
+            <forward name="success" path="/WEB-INF/jsp/success.jsp"/>
+            <forward name="failure" path="/WEB-INF/jsp/assignmentForm.jsp"/>
+        </action>
+
+        <action path="/viewSubmissions" type="com.university.assignment.action.ViewSubmissionsAction">
+            <forward name="success" path="/WEB-INF/jsp/submissions.jsp"/>
+        </action>
+    </action-mappings>
+
+    <message-resources parameter="ApplicationResources"/>
+</struts-config>

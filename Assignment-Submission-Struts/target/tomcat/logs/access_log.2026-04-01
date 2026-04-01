@@ -1,0 +1,9 @@
+0:0:0:0:0:0:0:1 - - [01/Apr/2026:11:18:47 +0530] "GET /assignment-submission-struts/assignmentForm.do HTTP/1.1" 200 3497 http-bio-8080-exec-1 817
+0:0:0:0:0:0:0:1 - - [01/Apr/2026:11:18:49 +0530] "GET /assignment-submission-struts/assignmentForm.do HTTP/1.1" 200 3497 http-bio-8080-exec-3 2
+0:0:0:0:0:0:0:1 - - [01/Apr/2026:11:19:24 +0530] "POST /assignment-submission-struts/submitAssignment.do HTTP/1.1" 200 1512 http-bio-8080-exec-4 549
+0:0:0:0:0:0:0:1 - - [01/Apr/2026:11:19:28 +0530] "GET /assignment-submission-struts/viewSubmissions.do HTTP/1.1" 200 2638 http-bio-8080-exec-5 279
+0:0:0:0:0:0:0:1 - - [01/Apr/2026:11:19:30 +0530] "GET /assignment-submission-struts/assignmentForm.do HTTP/1.1" 200 3497 http-bio-8080-exec-6 3
+0:0:0:0:0:0:0:1 - - [01/Apr/2026:11:20:14 +0530] "GET /assignment-submission-struts/viewSubmissions.do HTTP/1.1" 200 2638 http-bio-8080-exec-7 71
+0:0:0:0:0:0:0:1 - - [01/Apr/2026:11:21:57 +0530] "GET /assignment-submission-struts/assignmentForm.do HTTP/1.1" 200 3497 http-bio-8080-exec-10 3
+0:0:0:0:0:0:0:1 - - [01/Apr/2026:11:21:59 +0530] "GET /assignment-submission-struts/viewSubmissions.do HTTP/1.1" 200 2638 http-bio-8080-exec-10 72
+0:0:0:0:0:0:0:1 - - [01/Apr/2026:11:22:00 +0530] "GET /assignment-submission-struts/assignmentForm.do HTTP/1.1" 200 3497 http-bio-8080-exec-10 3

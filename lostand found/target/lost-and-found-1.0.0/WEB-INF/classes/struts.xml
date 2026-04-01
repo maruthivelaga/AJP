@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true"/>
+
+    <package name="default" namespace="/" extends="struts-default">
+
+        <action name="home" class="com.campus.lostfound.action.DashboardAction">
+            <result>/WEB-INF/jsp/index.jsp</result>
+        </action>
+
+        <action name="reportForm" class="com.campus.lostfound.action.ReportItemAction" method="execute">
+            <result>/WEB-INF/jsp/report.jsp</result>
+            <result name="input">/WEB-INF/jsp/report.jsp</result>
+        </action>
+
+        <action name="submitReport" class="com.campus.lostfound.action.ReportItemAction" method="submit">
+            <result>/WEB-INF/jsp/report.jsp</result>
+            <result name="input">/WEB-INF/jsp/report.jsp</result>
+        </action>
+
+        <action name="searchItems" class="com.campus.lostfound.action.SearchItemsAction">
+            <result>/WEB-INF/jsp/search.jsp</result>
+        </action>
+
+        <action name="notifications" class="com.campus.lostfound.action.NotificationAction" method="execute">
+            <result>/WEB-INF/jsp/notifications.jsp</result>
+        </action>
+
+        <action name="runMatching" class="com.campus.lostfound.action.NotificationAction" method="runMatching">
+            <result>/WEB-INF/jsp/notifications.jsp</result>
+        </action>
+
+        <action name="adminDashboard" class="com.campus.lostfound.action.AdminAction" method="execute">
+            <result>/WEB-INF/jsp/admin.jsp</result>
+        </action>
+
+        <action name="verifyFoundItem" class="com.campus.lostfound.action.AdminAction" method="verifyFound">
+            <result>/WEB-INF/jsp/admin.jsp</result>
+        </action>
+
+        <action name="openDispute" class="com.campus.lostfound.action.AdminAction" method="openDispute">
+            <result>/WEB-INF/jsp/admin.jsp</result>
+        </action>
+
+        <action name="resolveDispute" class="com.campus.lostfound.action.AdminAction" method="resolveDispute">
+            <result>/WEB-INF/jsp/admin.jsp</result>
+        </action>
+
+    </package>
+</struts>

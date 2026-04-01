@@ -1,0 +1,144 @@
+:root {
+    --bg: #f4f8fb;
+    --card: #ffffff;
+    --ink: #152238;
+    --muted: #51627a;
+    --accent: #0f7e8a;
+    --accent-soft: #d9f2f5;
+    --danger: #b42318;
+    --line: #d7e1ea;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at 10% 0%, #e2f2f4 0%, transparent 35%),
+        radial-gradient(circle at 95% 20%, #dbe7f8 0%, transparent 35%),
+        var(--bg);
+}
+
+.container {
+    width: min(1100px, 92vw);
+    margin: 24px auto;
+}
+
+.header {
+    background: linear-gradient(135deg, #0f7e8a, #1d5f94);
+    color: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 18px rgba(16, 63, 82, 0.2);
+}
+
+.nav {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 999px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px;
+    margin-top: 16px;
+    box-shadow: 0 10px 20px rgba(33, 50, 80, 0.08);
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+}
+
+input, textarea, select, button {
+    font: inherit;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #b8c6d8;
+    background: #fff;
+}
+
+button {
+    width: fit-content;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 10px;
+    background: var(--accent);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    padding: 10px 6px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.alert-error {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.alert-success {
+    color: #067647;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 94vw;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    td {
+        border-bottom: 1px solid #e5edf5;
+        padding: 6px 0;
+    }
+}

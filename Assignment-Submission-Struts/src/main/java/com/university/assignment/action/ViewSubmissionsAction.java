@@ -1,0 +1,37 @@
+package com.university.assignment.action;
+
+import com.university.assignment.dao.AssignmentDao;
+import com.university.assignment.model.Assignment;
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
+import java.util.List;
+
+public class ViewSubmissionsAction extends Action {
+
+    private final AssignmentDao assignmentDao = new AssignmentDao();
+
+    @Override
+    public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+                                 HttpServletResponse response) {
+        try {
+            List<Assignment> submissions = assignmentDao.getAllAssignments();
+            request.setAttribute("submissions", submissions);
+            return mapping.findForward("success");
+        } catch (Exception exception) {
+            ActionErrors errors = new ActionErrors();
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("error.submission.failed"));
+            saveErrors(request, errors);
+            request.setAttribute("submissions", Collections.emptyList());
+            return mapping.findForward("success");
+        }
+    }
+}
